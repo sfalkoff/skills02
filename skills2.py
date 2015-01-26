@@ -1,34 +1,5 @@
 #!/usr/bin/env python
 
-
-"""Hackbright Skills 2: Python Data Structures.
-
-There are a bunch of functions in this file that are not written, but
-have documentation strings that explain how they should work. Your job
-is to edit this file to write the bodies of these functions.
-
-We expect that you will solve these problems using Python lists
-and dictionaries. Some of these problems could be solved with Python
-sets (a more advanced data type); if you've learned about sets, you
-may use these here.
-
-This file uses "doctests"; the explanation of how the functions should
-work contains examples just like you'd see in the Python interpreter.
-The examples are actually run and tested when this file is ran.
-
-When you first run this test, it will show test failures for every
-function--since the real functions haven't been written yet. As you
-write the real functions, your test failure count will go down.
-
-At the point where you've completed this skills assessment, the
-only output from this program would be:
-
-   ** ALL TESTS PASSED. GOOD WORK!
-
-Good luck!
-
-"""
-
 def count_unique(string1):
     """Count unique words in a string.
 
@@ -55,15 +26,16 @@ def count_unique(string1):
         {'Porcupine': 1, 'do.': 1, 'porcupine': 1, 'see,': 1}
 
     """
-    # string: rstrip, split, into list, make {}.
-    # iterate over list, if/then into dict and make counts.
+
     wordlist = (string1.rstrip()).split(" ")
     wordcount = {}
+
     for word in wordlist:
         if word not in wordcount:
             wordcount[word] = 1
         else:
             wordcount[word] += 1
+
     return wordcount
 
 def common_items(list1, list2):
@@ -92,13 +64,9 @@ def common_items(list1, list2):
         [1, 1, 2, 2]
 
     """
-    #create common list
-    #iterate through list1
-        #iterate through list2
-            #if list1[ix] = if list2[ix]
-                #append list1[ix] to common list
 
     common_list = []
+
     for i in list1:
         for j in list2:
             if i == j:
@@ -130,11 +98,13 @@ def unique_common_items(list1, list2):
     """
 
     adict = {}
+
     for i in list1:
         for j in list2:
             if i == j:
                 adict[i] = ""
-    common_list = adict.keys()      
+    common_list = adict.keys()   
+
     return common_list
 
 
@@ -163,16 +133,17 @@ def sum_zero(list1):
         [[-2, 2], [-1, 1], [0, 0]]
 
     """
-    # adict = {}
-    # for i in list1:
-    #     for j in list1:
-    #         if i + j == 0:
-    #             adict[i] = ""
-                # adict[(i, j)] = ""
-    # tuples_list = adict.keys()
-    # # nested_lists = [list(key) for key in tuples_list]
-    # return nested_lists
-    return []
+    sum_zero = []
+    
+    for number in list1:
+        for num in list1:
+            if number + num == 0:
+                if [number, num] in sum_zero or [num, number] in sum_zero:
+                    continue
+                else:
+                    sum_zero.append([number, num])
+
+    return sum_zero
 
 
 def find_duplicates(words):
@@ -191,7 +162,9 @@ def find_duplicates(words):
         ['Rose', 'a', 'is', 'rose']
 
     """
+
     adict = {}
+
     for word in words:
         if word not in adict:
             adict[word] = ""
@@ -213,22 +186,19 @@ def word_length(words):
         [(1, ['a']), (2, ['ok', 'an']), (3, ['day']), (5, ['apple'])]
 
     """
-    # have a dict
-    # each word in list, get word len = akey
-    # is akey (len) is not in dict, add to dict.
-    # if akey(len) is in dict, add to value list.
-    # convert dict to list (of tuples)   adict.items().
-    # sort the list of tuples.
 
     adict = {}
+
     for word in words:
         akey = len(word)
         if akey not in adict:
             adict[akey] = [word]
         else:
             adict[akey].append(word)
+
     tuples_list = adict.items()
     tuples_list.sort()
+
     return tuples_list
 
 
@@ -247,17 +217,20 @@ def adv_word_length_sorted_words(words):
 
     """
     adict = {}
+
     for word in words:
         akey = len(word)
         if akey not in adict:
             adict[akey] = [word]
         else:
             adict[akey].append(word)
-    # need to sort values (in list of values, per key)
+  
     for k,v in adict.items():
         v.sort()
+
     tuples_list = adict.items()
     tuples_list.sort()
+
     return tuples_list 
 
 
@@ -304,16 +277,41 @@ def pirate_talk(phrase):
 
     """
 
-    return ""
+    translations = {'ir': 'matey',
+                    'hotel': 'fleabag inn',
+                    'student': 'swabbie', 
+                    'boy': 'matey', 
+                    'madam': 'proud beauty',
+                    'professor': 'foul blaggart',
+                    'restaurant': 'galley',
+                    'your': 'yer',
+                    'excuse': 'arr',
+                    'students': 'swabbies',
+                    'are': 'be',
+                    'lawyer': 'foul blaggart',
+                    'the': 'th',
+                    'restroom': 'head',
+                    'my': 'me',
+                    'hello': 'avast',
+                    'is': 'be',
+                    'man': 'matey'
+                    }
 
+    phrase_list = phrase.split(" ")
+
+    for i in range(len(phrase_list)):
+        if phrase_list[i] in translations:
+            phrase_list[i] = translations[phrase_list[i]]
+
+    pirate_phrase = " ".join(phrase_list)
+
+    return pirate_phrase
 
 ##############################################################################
-# END OF SKILLS TEST; YOU CAN STOP HERE.
-
 
 def print_dict(d):
     # This method is just used to print dictionaries in key-alphabetical
-    # order, and is only used for our documentation tests. You can ignore it.
+    # order, and is only used for documentation tests. 
     if isinstance(d, dict):
         print "{" + ", ".join("%r: %r" % (k, d[k]) for k in sorted(d)) + "}"
     else:
@@ -321,7 +319,7 @@ def print_dict(d):
 
 def sort_pairs(l):
     # Print sorted list of pairs where the pairs are sorted. This is used only
-    # for documenttion tests. You can ignore it.
+    # for documenttion tests.
     return sorted(sorted(pair) for pair in l)
  
 
